@@ -1,0 +1,219 @@
+Уровень 1: Самые простые слова
+1.	Hi — Привет
+2.	Bye — Пока
+3.	Yes — Да
+4.	No — Нет
+5.	OK — Хорошо
+6.	Here — Здесь
+7.	There — Там
+8.	Now — Сейчас
+9.	Later — Позже
+10.	Who — Кто
+11.	What — Что
+12.	Where — Где
+13.	When — Когда
+14.	Why — Почему
+15.	How — Как
+16.	This — Это
+17.	That — То
+18.	Me — Меня
+19.	My — Мой
+20.	Your — Ваш, твой
+
+Уровень 2: Простые существительные и прилагательные
+1.	Book — Книга
+2.	Pen — Ручка
+3.	Paper — Бумага
+4.	Tree — Дерево
+5.	Flower — Цветок
+6.	Sky — Небо
+7.	Star — Звезда
+8.	Moon — Луна
+9.	Sun — Солнце
+10.	Mountain — Гора
+11.	River — Река
+12.	Lake — Озеро
+13.	Sea — Море
+14.	Ocean — Океан
+15.	Island — Остров
+16.	Forest — Лес
+17.	Grass — Трава
+18.	Sand — Песок
+19.	Rock — Камень
+20.	Stone — Камень
+
+Уровень 3: Основные глаголы и местоимения
+1.	Am — Есть (первое лицо единственного числа)
+2.	Are — Есть (все остальные лица)
+3.	Have — Имею
+4.	Do — Делать
+5.	Make — Создавать
+6.	Get — Получить
+7.	Put — Положить
+8.	Take — Взять
+9.	Give — Давать
+10.	Find — Находить
+11.	Ask — Спрашивать
+12.	Tell — Рассказывать
+13.	Show — Показывать
+14.	Think — Думать
+15.	Know — Знать
+16.	Understand — Понимать
+17.	Feel — Чувствовать
+18.	Like — Любить, нравиться
+19.	Want — Хотеть
+20.	Need — Нуждаться
+
+Уровень 4: Расширенная лексика бытовых ситуаций
+1.	House — Дом
+2.	Room — Комната
+3.	Door — Дверь
+4.	Window — Окно
+5.	Table — Стол
+6.	Chair — Стул
+7.	Bed — Кровать
+8.	Closet — Шкаф
+9.	Couch — Диван
+10.	TV — Телевизор
+11.	Computer — Компьютер
+12.	Phone — Телефон
+13.	Radio — Радио
+14.	Clock — Часы
+15.	Calendar — Календарь
+16.	Key — Ключи
+17.	Mailbox — Почтовый ящик
+18.	Yard — Двор
+19.	Garage — Гараж
+20.	Balcony — Балкон
+
+Уровень 5: Простые абстрактные понятия и общие действия
+1.	Life — Жизнь
+2.	Death — Смерть
+3.	Love — Любовь
+4.	Happiness — Счастье
+5.	Pain — Боль
+6.	Joy — Радость
+7.	Hope — Надежда
+8.	Dream — Мечта
+9.	Memory — Память
+10.	Future — Будущее
+11.	Past — Прошлое
+12.	Present — Настоящее
+13.	Work — Работу
+14.	Rest — Отдых
+15.	Study — Учебу
+16.	Play — Игру
+17.	Sing — Петь
+18.	Draw — Рисовать
+19.	Dance — Танцевать
+20.	Laugh — Смех
+
+Уровень 6: Больше распространённых понятий и деталей окружения
+1.	Neighborhood — Район
+2.	Community — Сообщество
+3.	Building — Здание
+4.	Park — Парк
+5.	Bridge — Мост
+6.	Square — Площадь
+7.	Station — Станция
+8.	Shop — Магазин
+9.	Bank — Банк
+10.	Post office — Почтовое отделение
+11.	Library — Библиотека
+12.	Museum — Музей
+13.	Theater — Театр
+14.	Restaurant — Ресторан
+15.	Coffee shop — Кафе
+16.	Beach — Пляж
+17.	Pool — Бассейн
+18.	Playground — Детская площадка
+19.	Zoo — Зоопарк
+20.	Monument — Памятник
+
+Уровень 7: Средней сложности слова и выражения
+1.	Method — Метод
+2.	System — Система
+3.	Plan — План
+4.	Program — Программа
+5.	Activity — Деятельность
+6.	Project — Проект
+7.	Schedule — График
+8.	Organization — Организация
+9.	Procedure — Процедура
+10.	Rule — Правило
+11.	Policy — Политика
+12.	Requirement — Требование
+13.	Expectation — Ожидание
+14.	Evaluation — Оценка
+15.	Objective — Цель
+16.	Purpose — Назначение
+17.	Target — Целевое значение
+18.	Measure — Мероприятие
+19.	Function — Функция
+20.	Structure — Структура
+
+Уровень 8: Дополнительные академические и рабочие термины
+1.	Research — Исследование
+2.	Science — Наука
+3.	Technology — Технология
+4.	Information — Информация
+5.	Data — Данные
+6.	Experiment — Эксперимент
+7.	Hypothesis — Гипотеза
+8.	Conclusion — Выводы
+9.	Evidence — Доказательство
+10.	Observation — Наблюдение
+11.	Statistics — Статистика
+12.	Theory — Теория
+13.	Model — Модель
+14.	Concept — Понятие
+15.	Process — Процесс
+16.	Factor — Фактор
+17.	Variable — Переменная
+18.	Standard — Стандарт
+19.	Criteria — Критерии
+20.	Principle — Принцип
+
+Уровень 9: Абстрактные и формализованные термины
+1.	Initiative — Инициатива
+2.	Accountability — Ответственность
+3.	Transparency — Прозрачность
+4.	Ethics — Этика
+5.	Democracy — Демократия
+6.	Leadership — Руководство
+7.	Management — Управление
+8.	Governance — Государственное управление
+9.	Society — Общество
+10.	Institution — Институт
+11.	Infrastructure — Инфраструктура
+12.	Environment — Окружающая среда
+13.	Resource — Ресурс
+14.	Population — Население
+15.	Development — Развитие
+16.	Conflict — Конфликт
+17.	Peace — Мир
+18.	Integration — Интеграция
+19.	Migration — Миграция
+20.	Globalization — Глобализаци
+Уровень 10: Высокого уровня абстракции и специализированная лексика
+1.	Paradigm — Парадигма
+2.	Ontology — Онтология
+3.	Epistemology — Эпистемология
+4.	Axiom — Аксиома
+5.	Proposition — Утверждение
+6.	Deduction — Дедукция
+7.	Induction — Индукция
+8.	Abstraction — Абстракция
+9.	Assumption — Допущение
+10.	Assertion — Заявление
+11.	Convention — Конвенция
+12.	Empirical — Эмпирический
+13.	Rationale — Рационализация
+14.	Specification — Спецификация
+15.	Substantiation — Обоснование
+16.	Validation — Проверка валидности
+17.	Verification — Верификация
+18.	Normalization — Нормализация
+19.	Representation — Репрезентация
+20.	Transformation — Трансформация
+

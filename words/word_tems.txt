@@ -1,0 +1,290 @@
+Тема - Спорт
+1.	Medal — Медаль
+2.	Athlete — Атлет, спортсмен
+3.	Coach — Тренер
+4.	Team — Команда
+5.	Game — Игра
+6.	Match — Матч
+7.	Competition — Соревнование
+8.	Championship — Чемпионат
+9.	Tournament — Турнир
+10.	Field — Поле, площадка
+11.	Stadium — Стадион
+12.	Arena — Арена
+13.	Court — Корт, площадка
+14.	Goal — Гол, цель
+15.	Score — Очки, счёт
+16.	Referee — Судья
+17.	Penalty — Штраф, пенальти
+18.	Victory — Победа
+19.	Defeat — Поражение
+20.	Training — Тренировка
+21.	Workout — Занятие фитнесом, тренировочное занятие
+22.	Fitness — Фитнес
+23.	Exercise — Упражнение
+24.	Muscle — Мышца
+25.	Energy — Энергия
+Тема – Еда и Кулинария
+1.	Food — Еда
+2.	Dish — Блюдо
+3.	Recipe — Рецепт
+4.	Ingredient — Ингредиент
+5.	Cooking — Готовка, приготовление пищи
+6.	Baking — Выпечка
+7.	Kitchen — Кухня
+8.	Oven — Духовка
+9.	Stove — Плита
+10.	Fridge — Холодильник
+11.	Pantry — Шкафчик, кладовая
+12.	Cutlery — Столовые приборы
+13.	Plate — Тарелка
+14.	Fork — Вилка
+15.	Knife — Нож
+16.	Spoon — Ложка
+17.	Appetizer — Закуска
+18.	Main course — Основное блюдо
+19.	Dessert — Десерт
+20.	Snack — Перекус
+21.	Meal — Прием пищи
+22.	Breakfast — Завтрак
+23.	Lunch — Обед
+24.	Dinner — Ужин
+25.	Eating habits — Привычки питания
+Тема – Путешествия и туризм 
+1.	Travel — Путешествие
+2.	Trip — Поездка
+3.	Vacation — Отдых, отпуск
+4.	Destination — Место назначения
+5.	Tourist — Турист
+6.	Guide — Гид
+7.	Passport — Паспорт
+8.	Visa — Виза
+9.	Hotel — Гостиница, отель
+10.	Airport — Аэропорт
+11.	Train station — Железнодорожный вокзал
+12.	Bus stop — Автобусная остановка
+13.	Suitcase — Чемодан
+14.	Backpack — Рюкзак
+15.	Map — Карта
+16.	Itinerary — Маршрут, программа тура
+17.	Flight — Полёт
+18.	Check-in — Регистрация на рейс
+19.	Baggage claim — Получение багажа
+20.	Exchange rate — Курс обмена валюты
+21.	Currency — Валюта
+22.	Booking — Бронирование
+23.	Excursion — Экскурсия
+24.	Souvenir — Сувенир
+25.	Adventure — Приключение
+Тема – Работа 
+1.	Job — Работа
+2.	Career — Карьера
+3.	Employment — Трудоустройство
+4.	Resume — Резюме
+5.	Interview — Интервью
+6.	Experience — Опыт
+7.	Skills — Навыки
+8.	Qualification — Квалификация
+9.	Position — Должность
+10.	Salary — Зарплата
+11.	Promotion — Повышение
+12.	Manager — Менеджер
+13.	Employee — Сотрудник
+14.	Boss — Начальник
+15.	Colleague — Коллега
+16.	Department — Отдел
+17.	Office — Офис
+18.	Business trip — Командировка
+19.	Deadline — Срок сдачи, дедлайн
+20.	Project — Проект
+21.	Meeting — Встреча, совещание
+22.	Task — Задача
+23.	Responsibility — Ответственность
+24.	Achievement — Достижение
+25.	Performance — Производительность, эффективность
+Тема - Искусство и культура
+1.	Art — Искусство
+2.	Culture — Культура
+3.	Painting — Картина, живопись
+4.	Sculpture — Скульптура
+5.	Music — Музыка
+6.	Theatre — Театр
+7.	Opera — Опера
+8.	Concert — Концерт
+9.	Exhibition — Выставка
+10.	Gallery — Галерея
+11.	Artist — Художник
+12.	Composer — Композитор
+13.	Director — Режиссёр
+14.	Actor — Актёр
+15.	Playwright — Драматург
+16.	Literature — Литература
+17.	Book — Книга
+18.	Poetry — Поэзия
+19.	Photography — Фотография
+20.	Design — Дизайн
+21.	Architecture — Архитектура
+22.	Film — Фильм
+23.	Costume — Костюм
+24.	Stage — Сцена
+25.	Masterpiece — Мастерская работа, шедевр
+Тема - IT термины
+1.	Software — Софт, программное обеспечение
+2.	Hardware — Аппаратное обеспечение, железо
+3.	Code — Код
+4.	Programming language — Язык программирования
+5.	Algorithm — Алгоритм
+6.	Debugging — Отладка
+7.	Bug — Баг, ошибка
+8.	Database — Базаданных
+9.	Server — Сервер
+10.	Client — Клиент
+11.	Network — Сеть
+12.	Firewall — Межсетевой экран, фаервол
+13.	Security — Безопасность
+14.	Encryption — Шифрование
+15.	Cloud computing — Облачные вычисления
+16.	Virtualization — Виртуализация
+17.	Operating system — Операционная система
+18.	User interface — Пользовательский интерфейс
+19.	Backend — Внутренняя логика приложения, серверная сторона
+20.	Frontend — Внешняя видимая часть приложения, клиентская сторона
+21.	API — Application Programming Interface, программный интерфейс приложений
+22.	Framework — Рамочная структура, каркас программы
+23.	Version control — Система контроля версий
+24.	Compiler — Компилятор
+25.	Optimization — Оптимизация
+Тема – Бизнес английский
+1.	Business — Бизнес
+2.	Company — Компания
+3.	Corporation — Корпорация
+4.	Entrepreneur — Предприниматель
+5.	Market — Рынок
+6.	Product — Продукт
+7.	Service — Услуга
+8.	Sales — Продажи
+9.	Revenue — Доход
+10.	Profit — Прибыль
+11.	Loss — Потеря, убыток
+12.	Investment — Инвестиция
+13.	Stocks — Акции
+14.	Shareholder — Акционер
+15.	Customer — Клиент
+16.	Supplier — Поставщик
+17.	Distribution — Распределение
+18.	Brand — Бренд
+19.	Marketing — Маркетинг
+20.	Advertising — Реклама
+21.	Strategy — Стратегия
+22.	Budget — Бюджет
+23.	Negotiations — Переговоры
+24.	Agreement — Соглашение
+25.	Contract — Контракт
+Тема - Окружающая среда и экология
+1.	Environment — Окружающая среда
+2.	Ecology — Экология
+3.	Nature — Природа
+4.	Pollution — Загрязнение
+5.	Climate change — Изменение климата
+6.	Global warming — Глобальное потепление
+7.	Carbon footprint — Углеродный след
+8.	Greenhouse effect — Парниковый эффект
+9.	Recycling — Утилизация отходов, переработка
+10.	Waste management — Управление отходами
+11.	Deforestation — Вырубка лесов
+12.	Renewable energy — Возобновляемые источники энергии
+13.	Sustainability — Устойчивое развитие
+14.	Biodegradable — Биологически разлагаемый
+15.	Conservation — Охрана природы
+16.	Wildlife — Дикие животные
+17.	Habitat — Местообитание
+18.	Ecosystem — Экоcистема
+19.	Biodiversity — Биологическое разнообразие
+20.	Natural resources — Природные ресурсы
+21.	Water conservation — Экономия воды
+22.	Air quality — Качество воздуха
+23.	Soil erosion — Эрозия почвы
+24.	Preservation — Сохранение
+25.	Organic farming — Органическое земледелие
+Тема - Транспорт и логистика
+1.	Transportation — Транспорт
+2.	Logistics — Логистика
+3.	Vehicle — Транспортное средство
+4.	Car — Автомобиль
+5.	Truck — Грузовик
+6.	Ship — Корабль
+7.	Plane — Самолет
+8.	Railway — Ж/д дорога
+9.	Road — Дорога
+10.	Traffic — Движение транспорта
+11.	Route — Маршрут
+12.	Journey — Путешествие
+13.	Delivery — Доставка
+14.	Shipping — Морские перевозки
+15.	Forwarder — Экспедитор
+16.	Warehouse — Склад
+17.	Storage — Хранение
+18.	Container — Контейнер
+19.	Fleet — Парк транспортных средств
+20.	Freight — Груз
+21.	Fuel — Топливо
+22.	Transit — Транзит
+23.	Navigation — Навигация
+24.	Port — Порт
+25.	Terminal — Терминал
+Тема - Здоровье и медицина
+1.	Health — Здоровье
+2.	Medicine — Медицина
+3.	Doctor — Врач
+4.	Patient — Пациент
+5.	Hospital — Больница
+6.	Clinic — Клиника
+7.	Pharmacy — Аптека
+8.	Treatment — Лечение
+9.	Diagnosis — Диагноз
+10.	Symptom — Симптом
+11.	Illness — Болезнь
+12.	Surgery — Хирургия
+13.	Therapy — Терапия
+14.	Vaccination — Вакцинация
+15.	Prevention — Профилактика
+16.	Rehabilitation — Реабилитация
+17.	First aid — Первая помощь
+18.	Emergency — Чрезвычайная ситуация, экстренная помощь
+19.	Nurse — Медицинская сестра
+20.	Medical equipment — Медицинское оборудование
+21.	Disease — Заболевание
+22.	Immunity — Иммунитет
+23.	Hygiene — Гигиена
+24.	Well-being — Благополучие
+25.	Nutrition — Питание
+Тема - Семья и отношения
+1.	Family — Семья
+2.	Parents — Родители
+3.	Mother — Мать
+4.	Father — Отец
+5.	Children — Дети
+6.	Son — Сын
+7.	Daughter — Дочь
+8.	Brother — Брат
+9.	Sister — Сестра
+10.	Grandparents — Бабушка и дедушка
+11.	Husband — Муж
+12.	Wife — Жена
+13.	Couple — Пара
+14.	Relationship — Отношения
+15.	Friendship — Дружба
+16.	Love — Любовь
+17.	Trust — Доверие
+18.	Support — Поддержка
+19.	Care — Забота
+20.	Bond — Связь, привязанность
+21.	Kinship — Родство
+22.	Ancestors — Предки
+23.	Descendant — Потомок
+24.	Heir — Наследник
+25.	Inheritance — Наследство
+
+
+
+

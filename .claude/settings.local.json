@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker run:*)",
+      "Bash(findstr:*)",
+      "Bash(lt:*)",
+      "Bash(timeout:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker cp:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
