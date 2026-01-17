@@ -10,7 +10,8 @@
       "Bash(docker rm:*)",
       "Bash(docker exec:*)",
       "Bash(docker cp:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

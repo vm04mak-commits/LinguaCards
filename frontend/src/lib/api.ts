@@ -34,6 +34,14 @@ export interface SubmitAnswerDto {
   direction: 'ru-en' | 'en-ru';
 }
 
+export interface DailyLimitInfo {
+  cardsStudiedToday: number;
+  dailyLimit: number;
+  remainingCards: number;
+  isLimitExceeded: boolean;
+  isPremium: boolean;
+}
+
 // API methods
 export const apiClient = {
   // Users
@@ -61,4 +69,5 @@ export const apiClient = {
   getCardProgress: (cardId: number) => api.get(`/progress/card/${cardId}`),
   getDeckProgress: (deckId: number) => api.get(`/progress/deck/${deckId}`),
   getAllDecksProgress: () => api.get('/progress/all-decks'),
+  getDailyLimits: () => api.get<DailyLimitInfo>('/progress/limits'),
 }

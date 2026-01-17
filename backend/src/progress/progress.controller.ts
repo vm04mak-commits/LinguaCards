@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, ParseIntPipe, ForbiddenException } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
 import { IsNumber, IsString, IsIn } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -49,10 +49,26 @@ export class ProgressController {
     @Body() body: SubmitAnswerBody,
   ) {
     const user = await this.usersService.findOrCreateUser(telegramUser);
+
+    // Check daily limit before accepting answer
+    const limitInfo = await this.usersService.getDailyLimitInfo(user.id);
+    if (limitInfo.isLimitExceeded) {
+      throw new ForbiddenException({
+        message: 'Дневной лимит карточек исчерпан',
+        code: 'DAILY_LIMIT_EXCEEDED',
+        limitInfo,
+      });
+    }
+
     const progress = await this.progressService.submitAnswer(user.id, body);
+
+    // Get updated limit info after submitting answer
+    const updatedLimitInfo = await this.usersService.getDailyLimitInfo(user.id);
+
     return {
       success: true,
       data: progress,
+      limitInfo: updatedLimitInfo,
     };
   }
 
@@ -97,5 +113,13 @@ export class ProgressController {
     return {
       data: progress,
     };
+  }
+
+  @Get('limits')
+  @ApiOperation({ summary: 'Get daily limits info for current user' })
+  async getDailyLimits(@TgUser() telegramUser: TelegramUser) {
+    const user = await this.usersService.findOrCreateUser(telegramUser);
+    const limitInfo = await this.usersService.getDailyLimitInfo(user.id);
+    return limitInfo;
   }
 }

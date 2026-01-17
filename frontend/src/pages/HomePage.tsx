@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import FlipCard from '../components/FlipCard'
-import { apiClient, AnswerType } from '../lib/api'
+import Paywall from '../components/Paywall'
+import { apiClient, AnswerType, DailyLimitInfo } from '../lib/api'
 
 interface Card {
   id: number
@@ -39,6 +41,7 @@ interface DeckInfo {
 }
 
 const HomePage = () => {
+  const navigate = useNavigate()
   const [cards, setCards] = useState<Card[]>([])
   const [stats, setStats] = useState<DeckStats | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -46,6 +49,8 @@ const HomePage = () => {
   const [error, setError] = useState<string | null>(null)
   const [direction, setDirection] = useState<LanguageDirection>('ru-en')
   const [deckInfo, setDeckInfo] = useState<DeckInfo | null>(null)
+  const [limitInfo, setLimitInfo] = useState<DailyLimitInfo | null>(null)
+  const [showPaywall, setShowPaywall] = useState(false)
   const isInitialized = useRef(false)
 
   // Load from session storage or fetch from API
@@ -111,13 +116,33 @@ const HomePage = () => {
 
         // Validate that we have cards and index is valid
         if (parsedCards.length > 0 && parsedIndex < parsedCards.length) {
-          setCards(parsedCards)
-          setCurrentIndex(parsedIndex)
-          setStats(parsedStats)
-          if (savedDirection) {
-            setDirection(savedDirection as LanguageDirection)
-          }
-          setLoading(false)
+          // Check daily limits before restoring from cache
+          apiClient.getDailyLimits().then(limitsResponse => {
+            setLimitInfo(limitsResponse.data)
+            if (limitsResponse.data.isLimitExceeded) {
+              setShowPaywall(true)
+              setLoading(false)
+              return
+            }
+            // Limits OK - restore from cache
+            setCards(parsedCards)
+            setCurrentIndex(parsedIndex)
+            setStats(parsedStats)
+            if (savedDirection) {
+              setDirection(savedDirection as LanguageDirection)
+            }
+            setLoading(false)
+          }).catch(e => {
+            console.error('Error checking limits:', e)
+            // On error, still restore from cache
+            setCards(parsedCards)
+            setCurrentIndex(parsedIndex)
+            setStats(parsedStats)
+            if (savedDirection) {
+              setDirection(savedDirection as LanguageDirection)
+            }
+            setLoading(false)
+          })
           return
         }
       } catch (e) {
@@ -145,6 +170,20 @@ const HomePage = () => {
     try {
       setLoading(true)
       setError(null)
+
+      // First, check daily limits
+      try {
+        const limitsResponse = await apiClient.getDailyLimits()
+        setLimitInfo(limitsResponse.data)
+        if (limitsResponse.data.isLimitExceeded) {
+          setShowPaywall(true)
+          setLoading(false)
+          return
+        }
+      } catch (e) {
+        console.error('Error loading limits:', e)
+        // Continue even if limits fail to load
+      }
 
       // Check if specific deck is selected
       const selectedDeckId = sessionStorage.getItem(STORAGE_KEYS.selectedDeck)
@@ -189,13 +228,27 @@ const HomePage = () => {
   // Submit answer to backend
   const submitAnswer = useCallback(async (answer: AnswerType, cardToSubmit: Card) => {
     try {
-      await apiClient.submitAnswer({
+      const response = await apiClient.submitAnswer({
         cardId: cardToSubmit.id,
         answer,
         direction,
       })
-    } catch (err) {
+
+      // Update limit info from response
+      if (response.data.limitInfo) {
+        setLimitInfo(response.data.limitInfo)
+        // Check if limit was reached after this answer
+        if (response.data.limitInfo.isLimitExceeded) {
+          setShowPaywall(true)
+        }
+      }
+    } catch (err: any) {
       console.error('Error saving progress:', err)
+      // Check if it's a limit exceeded error
+      if (err.response?.status === 403 && err.response?.data?.code === 'DAILY_LIMIT_EXCEEDED') {
+        setLimitInfo(err.response.data.limitInfo)
+        setShowPaywall(true)
+      }
     }
   }, [direction])
 
@@ -254,7 +307,7 @@ const HomePage = () => {
     )
   }
 
-  if (cards.length === 0) {
+  if (cards.length === 0 && !showPaywall) {
     return (
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="text-center">
@@ -270,10 +323,33 @@ const HomePage = () => {
     )
   }
 
+  // Show paywall when daily limit is exceeded
+  if (showPaywall && limitInfo) {
+    return (
+      <div className="h-full bg-background">
+        <Paywall
+          limitInfo={limitInfo}
+          onContinueTomorrow={() => navigate('/decks')}
+          // onBuyNow will be added in monetization phase
+        />
+      </div>
+    )
+  }
+
   const currentCard = cards[currentIndex]
 
   const toggleDirection = () => {
     setDirection(prev => prev === 'ru-en' ? 'en-ru' : 'ru-en')
+  }
+
+  const handleShuffle = () => {
+    // Clear all card caches and selected deck
+    sessionStorage.removeItem(STORAGE_KEYS.cards)
+    sessionStorage.removeItem(STORAGE_KEYS.index)
+    sessionStorage.removeItem(STORAGE_KEYS.stats)
+    sessionStorage.removeItem(STORAGE_KEYS.selectedDeck)
+    setDeckInfo(null)
+    loadCards()
   }
 
   const frontText = direction === 'ru-en' ? currentCard.ru_text : currentCard.en_text
@@ -313,6 +389,16 @@ const HomePage = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* Shuffle button */}
+            <button
+              onClick={handleShuffle}
+              className="flex items-center justify-center bg-white border border-gray-300 px-2 py-1 rounded-full text-gray-700"
+              title="Перемешать все карточки"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+              </svg>
+            </button>
             {/* Language direction toggle */}
             <button
               onClick={toggleDirection}

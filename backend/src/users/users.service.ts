@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { TelegramUser } from '../auth/auth.service';
+import { LIMITS_CONFIG } from '../config/limits.config';
 
 export interface User {
   id: number;
@@ -175,5 +176,67 @@ export class UsersService {
       is_premium: true,
       premium_until: premiumUntil,
     });
+  }
+
+  /**
+   * Get daily limit info for user
+   * Returns cards studied today, limit, and whether limit is exceeded
+   */
+  async getDailyLimitInfo(userId: number): Promise<{
+    cardsStudiedToday: number;
+    dailyLimit: number;
+    remainingCards: number;
+    isLimitExceeded: boolean;
+    isPremium: boolean;
+  }> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const isPremium = await this.isPremium(userId);
+
+    // Premium users have no limits
+    if (isPremium) {
+      return {
+        cardsStudiedToday: 0,
+        dailyLimit: -1, // unlimited
+        remainingCards: -1, // unlimited
+        isLimitExceeded: false,
+        isPremium: true,
+      };
+    }
+
+    // Get today's stats
+    const today = new Date().toISOString().split('T')[0];
+    const result = await this.db.query(
+      `SELECT cards_studied FROM daily_stats WHERE user_id = $1 AND date = $2`,
+      [userId, today],
+    );
+
+    const cardsStudiedToday = result.rows[0]?.cards_studied || 0;
+    // Use config as default, user.daily_cards_limit only if explicitly set differently (for special users)
+    const dailyLimit = LIMITS_CONFIG.FREE_DAILY_CARDS_LIMIT;
+    const remainingCards = Math.max(0, dailyLimit - cardsStudiedToday);
+    const isLimitExceeded = cardsStudiedToday >= dailyLimit;
+
+    return {
+      cardsStudiedToday,
+      dailyLimit,
+      remainingCards,
+      isLimitExceeded,
+      isPremium: false,
+    };
+  }
+
+  /**
+   * Reset daily limit for user (after purchase)
+   */
+  async resetDailyLimit(userId: number): Promise<void> {
+    const today = new Date().toISOString().split('T')[0];
+    await this.db.query(
+      `UPDATE daily_stats SET cards_studied = 0 WHERE user_id = $1 AND date = $2`,
+      [userId, today],
+    );
   }
 }
