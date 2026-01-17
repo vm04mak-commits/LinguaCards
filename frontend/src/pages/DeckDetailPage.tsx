@@ -62,10 +62,22 @@ const DeckDetailPage = () => {
   }
 
   const handleStartStudy = () => {
-    // Clear session storage to force fresh cards from this deck
+    // Clear session storage to force fresh cards from this deck (all versions)
     sessionStorage.removeItem('linguacards_cards')
     sessionStorage.removeItem('linguacards_index')
     sessionStorage.removeItem('linguacards_stats')
+    sessionStorage.removeItem('linguacards_cards_v1')
+    sessionStorage.removeItem('linguacards_index_v1')
+    sessionStorage.removeItem('linguacards_stats_v1')
+    sessionStorage.removeItem('linguacards_cards_v2')
+    sessionStorage.removeItem('linguacards_index_v2')
+    sessionStorage.removeItem('linguacards_stats_v2')
+    sessionStorage.removeItem('linguacards_cards_v3')
+    sessionStorage.removeItem('linguacards_index_v3')
+    sessionStorage.removeItem('linguacards_stats_v3')
+    sessionStorage.removeItem('linguacards_cards_v4')
+    sessionStorage.removeItem('linguacards_index_v4')
+    sessionStorage.removeItem('linguacards_stats_v4')
     // Store selected deck ID
     sessionStorage.setItem('linguacards_selected_deck', id || '1')
     navigate('/')

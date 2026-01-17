@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { apiClient } from '../lib/api'
 
 interface Deck {
@@ -20,18 +20,16 @@ interface Deck {
 
 const DecksPage = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [decks, setDecks] = useState<Deck[]>([])
   const [myDecks, setMyDecks] = useState<Deck[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'ready' | 'my'>('ready')
   const [subscribingId, setSubscribingId] = useState<number | null>(null)
 
-  useEffect(() => {
-    loadAllDecks()
-  }, [])
-
-  const loadAllDecks = async () => {
+  const loadAllDecks = useCallback(async () => {
     try {
+      setLoading(true)
       // Load both decks and myDecks in parallel
       const [decksResponse, myDecksResponse] = await Promise.all([
         apiClient.getDecks(),
@@ -44,15 +42,18 @@ const DecksPage = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
-  const loadMyDecks = async () => {
-    try {
-      const response = await apiClient.getMyDecks()
-      setMyDecks(response.data.data || [])
-    } catch (err) {
-      console.error('Error loading my decks:', err)
-    }
+  // Reload data when navigating to this page
+  useEffect(() => {
+    loadAllDecks()
+  }, [location.pathname, loadAllDecks])
+
+  // Clear cards cache so HomePage reloads fresh data
+  const clearCardsCache = () => {
+    sessionStorage.removeItem('linguacards_cards_v4')
+    sessionStorage.removeItem('linguacards_index_v4')
+    sessionStorage.removeItem('linguacards_stats_v4')
   }
 
   const handleSubscribe = async (deckId: number) => {
@@ -63,6 +64,8 @@ const DecksPage = () => {
       setDecks(decks.map(d =>
         d.id === deckId ? { ...d, is_subscribed: true } : d
       ))
+      // Clear cache so HomePage shows updated cards count
+      clearCardsCache()
     } catch (err) {
       console.error('Error subscribing:', err)
     } finally {
@@ -79,6 +82,8 @@ const DecksPage = () => {
         d.id === deckId ? { ...d, is_subscribed: false } : d
       ))
       setMyDecks(myDecks.filter(d => d.id !== deckId))
+      // Clear cache so HomePage shows updated cards count
+      clearCardsCache()
     } catch (err) {
       console.error('Error unsubscribing:', err)
     } finally {
@@ -120,18 +125,20 @@ const DecksPage = () => {
           <h3 className="font-bold text-gray-900 text-lg mb-1">
             {deck.title}
           </h3>
-          <p className="text-gray-600 text-sm mb-3">
+          <p className="text-gray-600 text-sm">
             {deck.description}
           </p>
-          <div className="flex items-center gap-2">
-            <span className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full font-medium">
-              {deck.difficulty || 'Начальный'}
-            </span>
-            <span className="text-gray-600 text-sm">
-              <span className="font-semibold">{deck.cards_count}</span> Карточек
-            </span>
-          </div>
         </div>
+      </div>
+
+      {/* Difficulty badge and cards count */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full font-medium">
+          {deck.difficulty || 'Начальный'}
+        </span>
+        <span className="text-gray-600 text-sm">
+          <span className="font-semibold">{deck.cards_count}</span> карточек
+        </span>
       </div>
 
       {/* Progress bar */}

@@ -47,12 +47,22 @@ export class DecksService {
     }
 
     // Get decks with subscription status and card stats for user
+    // Progress percentage is calculated dynamically based on known cards / total cards
     const result = await this.db.query<DeckWithProgress>(
       `SELECT
         d.*,
         CASE WHEN ud.id IS NOT NULL AND ud.is_active = true THEN true ELSE false END as is_subscribed,
-        COALESCE(ud.progress_percentage, 0) as progress_percentage,
-        COALESCE(ud.total_cards_studied, 0) as total_cards_studied,
+        COALESCE((
+          SELECT ROUND(COUNT(CASE WHEN up.status = 'known' THEN 1 END) * 100.0 / NULLIF(d.cards_count, 0), 0)
+          FROM cards c
+          LEFT JOIN user_progress up ON up.card_id = c.id AND up.user_id = $1
+          WHERE c.deck_id = d.id
+        ), 0) as progress_percentage,
+        COALESCE((
+          SELECT COUNT(*) FROM user_progress up
+          INNER JOIN cards c ON c.id = up.card_id
+          WHERE c.deck_id = d.id AND up.user_id = $1
+        ), 0) as total_cards_studied,
         COALESCE((
           SELECT COUNT(*) FROM cards c
           LEFT JOIN user_progress up ON up.card_id = c.id AND up.user_id = $1
@@ -126,12 +136,22 @@ export class DecksService {
    * Get user's subscribed decks
    */
   async getUserDecks(userId: number): Promise<DeckWithProgress[]> {
+    // Progress percentage is calculated dynamically based on known cards / total cards
     const result = await this.db.query<DeckWithProgress>(
       `SELECT
         d.*,
         true as is_subscribed,
-        COALESCE(ud.progress_percentage, 0) as progress_percentage,
-        COALESCE(ud.total_cards_studied, 0) as total_cards_studied,
+        COALESCE((
+          SELECT ROUND(COUNT(CASE WHEN up.status = 'known' THEN 1 END) * 100.0 / NULLIF(d.cards_count, 0), 0)
+          FROM cards c
+          LEFT JOIN user_progress up ON up.card_id = c.id AND up.user_id = $1
+          WHERE c.deck_id = d.id
+        ), 0) as progress_percentage,
+        COALESCE((
+          SELECT COUNT(*) FROM user_progress up
+          INNER JOIN cards c ON c.id = up.card_id
+          WHERE c.deck_id = d.id AND up.user_id = $1
+        ), 0) as total_cards_studied,
         ud.started_at,
         ud.last_studied_at,
         COALESCE((

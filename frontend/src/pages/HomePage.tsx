@@ -23,10 +23,11 @@ interface DeckStats {
 type LanguageDirection = 'ru-en' | 'en-ru'
 
 // Session storage keys
+const STORAGE_VERSION = 'v4' // Increment to invalidate old cached data (v4 = fixed axios params)
 const STORAGE_KEYS = {
-  cards: 'linguacards_cards',
-  index: 'linguacards_index',
-  stats: 'linguacards_stats',
+  cards: `linguacards_cards_${STORAGE_VERSION}`,
+  index: `linguacards_index_${STORAGE_VERSION}`,
+  stats: `linguacards_stats_${STORAGE_VERSION}`,
   direction: 'linguacards_direction',
   selectedDeck: 'linguacards_selected_deck',
 }
@@ -52,10 +53,55 @@ const HomePage = () => {
     if (isInitialized.current) return
     isInitialized.current = true
 
+    // Clean up old version storage keys
+    sessionStorage.removeItem('linguacards_cards')
+    sessionStorage.removeItem('linguacards_index')
+    sessionStorage.removeItem('linguacards_stats')
+    sessionStorage.removeItem('linguacards_cards_v1')
+    sessionStorage.removeItem('linguacards_index_v1')
+    sessionStorage.removeItem('linguacards_stats_v1')
+    sessionStorage.removeItem('linguacards_cards_v2')
+    sessionStorage.removeItem('linguacards_index_v2')
+    sessionStorage.removeItem('linguacards_stats_v2')
+    sessionStorage.removeItem('linguacards_cards_v3')
+    sessionStorage.removeItem('linguacards_index_v3')
+    sessionStorage.removeItem('linguacards_stats_v3')
+
+    // Check if this is a fresh app launch using window flag (not persisted)
+    // @ts-ignore
+    const isExistingSession = window.__linguacards_session_active
+
+    if (!isExistingSession) {
+      // Fresh app launch - mark session as active and load all cards
+      // @ts-ignore
+      window.__linguacards_session_active = true
+      sessionStorage.removeItem(STORAGE_KEYS.selectedDeck)
+      sessionStorage.removeItem(STORAGE_KEYS.cards)
+      sessionStorage.removeItem(STORAGE_KEYS.index)
+      sessionStorage.removeItem(STORAGE_KEYS.stats)
+      setDeckInfo(null) // Reset deck info to show "LinguaCards"
+      loadCards()
+      return
+    }
+
+    // Existing session (navigating between pages) - try to restore from cache
     const savedCards = sessionStorage.getItem(STORAGE_KEYS.cards)
     const savedIndex = sessionStorage.getItem(STORAGE_KEYS.index)
     const savedStats = sessionStorage.getItem(STORAGE_KEYS.stats)
     const savedDirection = sessionStorage.getItem(STORAGE_KEYS.direction)
+    const savedDeckId = sessionStorage.getItem(STORAGE_KEYS.selectedDeck)
+
+    // Restore deck info if a deck was selected
+    if (savedDeckId) {
+      const deckId = parseInt(savedDeckId, 10)
+      apiClient.getDeck(deckId).then(response => {
+        setDeckInfo({
+          id: response.data.id,
+          title: response.data.title,
+          emoji: response.data.emoji || '📚',
+        })
+      }).catch(e => console.error('Error loading deck info:', e))
+    }
 
     if (savedCards && savedIndex) {
       try {
@@ -105,7 +151,7 @@ const HomePage = () => {
 
       let response
       if (selectedDeckId) {
-        // Load cards from specific deck
+        // Load cards from specific deck (limit 20)
         const deckId = parseInt(selectedDeckId, 10)
         try {
           const deckResponse = await apiClient.getDeck(deckId)
@@ -119,9 +165,9 @@ const HomePage = () => {
         }
         response = await apiClient.getCardsForStudy(deckId, 20)
       } else {
-        // Load cards from ALL subscribed decks (shuffled)
+        // Load cards from ALL subscribed decks (no limit, shuffled)
         setDeckInfo(null)
-        response = await apiClient.getAllCardsForStudy(20)
+        response = await apiClient.getAllCardsForStudy()
       }
 
       setCards(response.data.cards)
@@ -255,9 +301,7 @@ const HomePage = () => {
             <h1 className="text-base font-bold text-gray-900">
               {deckInfo
                 ? `${deckInfo.emoji} ${deckInfo.title}`
-                : currentCard?.deck_emoji
-                  ? `${currentCard.deck_emoji} ${currentCard.deck_title}`
-                  : 'LinguaCards'}
+                : 'LinguaCards'}
             </h1>
             <div className="flex items-center gap-2">
               <p className="text-xs text-gray-600">

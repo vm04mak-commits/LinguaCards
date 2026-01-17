@@ -22,7 +22,8 @@ export class CardsService {
    * Get cards for studying with prioritization based on user progress
    * Order: repeat → new → known
    */
-  async getCardsForStudy(deckId: number, userId: number, limit: number = 20) {
+  async getCardsForStudy(deckId: number, userId: number, limit?: number) {
+    const limitClause = limit ? `LIMIT ${limit}` : '';
     const result = await this.db.query(
       `SELECT
         c.id,
@@ -49,8 +50,8 @@ export class CardsService {
          END,
          up.last_studied_at ASC NULLS FIRST,
          c.sort_order
-       LIMIT $3`,
-      [deckId, userId, limit],
+       ${limitClause}`,
+      [deckId, userId],
     );
     return result.rows;
   }
@@ -84,7 +85,8 @@ export class CardsService {
    * Get cards from ALL user's subscribed decks for studying
    * Order: repeat → new → known (shuffled within each category)
    */
-  async getAllCardsForStudy(userId: number, limit: number = 20) {
+  async getAllCardsForStudy(userId: number, limit?: number) {
+    const limitClause = limit ? `LIMIT ${limit}` : '';
     const result = await this.db.query(
       `SELECT
         c.id,
@@ -113,8 +115,8 @@ export class CardsService {
            WHEN 'known' THEN 3
          END,
          RANDOM()
-       LIMIT $2`,
-      [userId, limit],
+       ${limitClause}`,
+      [userId],
     );
     return result.rows;
   }

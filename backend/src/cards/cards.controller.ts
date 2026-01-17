@@ -23,13 +23,14 @@ export class CardsController {
 
   @Get('study/:deckId')
   @ApiOperation({ summary: 'Get cards for studying with priority (repeat → new → known)' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Max cards to return (default 20)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Max cards to return (no limit by default)' })
   async getCardsForStudy(
     @TgUser() telegramUser: TelegramUser,
     @Param('deckId', ParseIntPipe) deckId: number,
-    @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+    @Query('limit') limitStr?: string,
   ) {
     const user = await this.usersService.findOrCreateUser(telegramUser);
+    const limit = limitStr ? parseInt(limitStr, 10) : undefined;
     const cards = await this.cardsService.getCardsForStudy(deckId, user.id, limit);
     const stats = await this.cardsService.getDeckStudyStats(deckId, user.id);
 
@@ -51,12 +52,13 @@ export class CardsController {
 
   @Get('study-all')
   @ApiOperation({ summary: 'Get cards from ALL subscribed decks for studying (shuffled)' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Max cards to return (default 20)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Max cards to return (no limit by default)' })
   async getAllCardsForStudy(
     @TgUser() telegramUser: TelegramUser,
-    @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+    @Query('limit') limitStr?: string,
   ) {
     const user = await this.usersService.findOrCreateUser(telegramUser);
+    const limit = limitStr ? parseInt(limitStr, 10) : undefined;
     const cards = await this.cardsService.getAllCardsForStudy(user.id, limit);
     const stats = await this.cardsService.getAllDecksStudyStats(user.id);
 

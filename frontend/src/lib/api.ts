@@ -50,9 +50,9 @@ export const apiClient = {
   // Cards
   getCards: (deckId: number) => api.get(`/cards/deck/${deckId}`),
   getCardsForStudy: (deckId: number, limit?: number) =>
-    api.get(`/cards/study/${deckId}`, { params: { limit } }),
+    api.get(`/cards/study/${deckId}`, limit !== undefined ? { params: { limit } } : {}),
   getAllCardsForStudy: (limit?: number) =>
-    api.get('/cards/study-all', { params: { limit } }),
+    api.get('/cards/study-all', limit !== undefined ? { params: { limit } } : {}),
   getDeckStats: (deckId: number) => api.get(`/cards/stats/${deckId}`),
 
   // Progress
