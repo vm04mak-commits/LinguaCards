@@ -6,19 +6,31 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   private pool: Pool;
 
   async onModuleInit() {
-    console.log('🔍 DATABASE_URL:', process.env.DATABASE_URL);
+    const databaseUrl = process.env.DATABASE_URL;
+    console.log('🔍 DATABASE_URL:', databaseUrl ? 'set' : 'not set');
 
-    // Use individual connection parameters instead of connection string
-    this.pool = new Pool({
-      host: 'localhost',
-      port: 5432,
-      user: 'postgres',
-      password: 'postgres',
-      database: 'linguacards',
-      max: 20,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
-    });
+    if (databaseUrl) {
+      // Use connection string for production (Neon, etc.)
+      this.pool = new Pool({
+        connectionString: databaseUrl,
+        ssl: { rejectUnauthorized: false },
+        max: 20,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 5000,
+      });
+    } else {
+      // Use individual connection parameters for local development
+      this.pool = new Pool({
+        host: 'localhost',
+        port: 5432,
+        user: 'postgres',
+        password: 'postgres',
+        database: 'linguacards',
+        max: 20,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+      });
+    }
 
     // Test connection
     try {
