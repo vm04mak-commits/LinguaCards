@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-// Ensure API URL ends with /api
+// API URL - VITE_API_URL should be base URL without /api (e.g., https://linguacards-api.onrender.com)
 const baseApiUrl = import.meta.env.VITE_API_URL || ''
 const API_URL = baseApiUrl ? `${baseApiUrl}/api` : '/api'
+
+console.log('🔗 API URL:', API_URL)
 
 // Get initData from Telegram WebApp
 const getInitData = (): string => {
