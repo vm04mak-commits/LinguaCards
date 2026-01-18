@@ -20,6 +20,9 @@ async function bootstrap() {
     origin: [
       process.env.CORS_ORIGIN || 'http://localhost:5173',
       'http://localhost:5173',
+      'https://lingua-cards-sand.vercel.app',
+      'https://web.telegram.org',
+      /\.vercel\.app$/,
       /\.ngrok-free\.dev$/,
       /\.ngrok\.io$/,
     ],
