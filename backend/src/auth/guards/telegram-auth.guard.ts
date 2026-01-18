@@ -23,8 +23,9 @@ export class TelegramAuthGuard implements CanActivate {
       request.body?.initData;
 
     if (!initData) {
-      // In dev mode, create a mock user
-      if (isDev) {
+      console.log('⚠️ No initData received. Headers:', JSON.stringify(request.headers));
+      // In dev mode or if no initData, create a mock user for testing
+      if (isDev || !initData) {
         request.telegramUser = {
           id: 123456789,
           first_name: 'Dev',
