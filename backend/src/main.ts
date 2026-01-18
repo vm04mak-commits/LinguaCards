@@ -28,7 +28,7 @@ async function bootstrap() {
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-telegram-init-data'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-telegram-init-data', 'ngrok-skip-browser-warning'],
   });
 
   // API prefix
