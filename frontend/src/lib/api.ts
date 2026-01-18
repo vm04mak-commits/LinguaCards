@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+// Ensure API URL ends with /api
+const baseApiUrl = import.meta.env.VITE_API_URL || ''
+const API_URL = baseApiUrl ? `${baseApiUrl}/api` : '/api'
 
 // Get initData from Telegram WebApp
 const getInitData = (): string => {
